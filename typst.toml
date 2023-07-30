@@ -1,0 +1,7 @@
+[package]
+authors = ["Julian-Wassmann"]
+description = "Provides utility functions for chapters."
+entrypoint = "lib.typ"
+license = "Unlicense"
+name = "chapter-utils"
+version = "0.1.0"
