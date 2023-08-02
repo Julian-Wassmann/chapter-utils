@@ -1,13 +1,13 @@
 #import "chapter-numbering.typ": chapter-numbering
 
 #let page-number(
-  page-label: "Page",
+  format-page: (page-number) => [Page #page-number]
 ) = locate(loc => {
   let page-number-format = loc.page-numbering()
-  // show page-label and page-number if page-numbering is enabled
+  // show styled page-number if page-numbering is enabled
   if page-number-format != none {
     let page-number = counter(page).display(page-number-format)
-    [#page-label #page-number]
+    format-page(page-number)
   }
 })
 
@@ -53,7 +53,7 @@
 }
 
 #let chapter-header(
-  page-label: "Page",
+  format-page: (page-number) => [Page #page-number],
   line-stroke: 0.3pt,
   line-spacing: 0.5em,
 ) = {
@@ -63,7 +63,7 @@
   [
     #page-heading()
     #h(1fr)
-    #page-number(page-label: page-label)
+    #page-number(format-page: format-page)
   ]
   
   line(

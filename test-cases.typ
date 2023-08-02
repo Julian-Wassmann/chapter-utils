@@ -1,16 +1,14 @@
 #import "lib.typ": chapter-header, chapter-numbering, page-number, page-heading
 
 #set page(
-  header: chapter-header(),
+  header: chapter-header(format-page: p => [Seite #p]),
   footer: [],
   numbering: "1",
 )
 
 #set math.equation(numbering: eqCounter => {
-  locate(loc => { 
-    let eqNumbering = numbering("1", eqCounter)
-    [(#chapter-numbering(location: loc).#eqNumbering)]
-  })
+  let eqNumbering = numbering("1", eqCounter)
+  [(#chapter-numbering().#eqNumbering)]
 })
 
 = Chapter 0
@@ -34,6 +32,6 @@ $ a^2 + b^2 = c^2 $
     h(1fr)
     [Author, #datetime.today().display()]
     h(1fr)
-    page-number()
+    page-number(format-page: p => [p. #p])
   }
 )
