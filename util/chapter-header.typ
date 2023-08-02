@@ -1,3 +1,5 @@
+#import "chapter-numbering.typ": chapter-numbering
+
 #let page-number(
   page-label: "Page",
 ) = locate(loc => {
@@ -9,9 +11,19 @@
   }
 })
 
+#let format-chapter-default(number, body) = {
+  if number == [] {
+    [#body]
+  } else {
+    [#number. #body]
+  }
+}
+
 // state saves the current chapter label of the page header
 #let chapter-label = state("chapter-label", [])
-#let page-heading() = locate(
+#let page-heading(
+  format-chapter: format-chapter-default
+) = locate(
   loc => {
     // find first heading on current page
     let first-heading = query(
@@ -19,12 +31,15 @@
       .find(h => h.location().page() == loc.page())
     // if headings were found on this page
     if first-heading != none {
-      if first-heading.numbering == none { // chapter without numbering
-        chapter-label.update([#first-heading.body])
-      } else { // chapter with numbering
-        let heading-counter = counter(heading).at(first-heading.location()).first()
-        chapter-label.update([#heading-counter. #first-heading.body])
+      let chapter-content = if first-heading.numbering == none {
+        // chapter without numbering
+        format-chapter([], first-heading.body)
+      } else {
+        // chapter with numbering
+        let heading-counter = chapter-numbering(location: first-heading.location())
+        format-chapter(heading-counter, first-heading.body)
       }
+      chapter-label.update(chapter-content)
     }
     chapter-label.display()
   }
