@@ -11,6 +11,22 @@
   }
 })
 
+#let update-page-chapter() = {
+  // state saves the current chapter of the page
+  let page-chapter = state("page-chapter")
+  locate(loc => {
+    // find last heading on current page
+    let last-heading = query(
+      heading.where(level: 1), loc)
+      .rev()
+      .find(h => h.location().page() == loc.page())
+    // update state if heading was found on this page
+    if last-heading != none {
+      page-chapter.update(last-heading)
+    }
+  }
+)}
+
 #let format-chapter-default(number, body) = {
   if number == [] {
     [#body]
@@ -19,32 +35,22 @@
   }
 }
 
-// state saves the current chapter label of the page header
-#let chapter-label = state("chapter-label", [])
 #let page-heading(
   format-chapter: format-chapter-default
-) = locate(
-  loc => {
-    // find first heading on current page
-    let first-heading = query(
-      heading.where(level: 1), loc)
-      .rev()
-      .find(h => h.location().page() == loc.page())
-    // if headings were found on this page
-    if first-heading != none {
-      let chapter-content = if first-heading.numbering == none {
-        // chapter without numbering
-        format-chapter([], first-heading.body)
-      } else {
-        // chapter with numbering
-        let heading-counter = chapter-numbering(location: first-heading.location())
-        format-chapter(heading-counter, first-heading.body)
-      }
-      chapter-label.update(chapter-content)
+) = {
+  // updates chapter state to the current page
+  update-page-chapter()
+  // state.display returns content from its format function
+  state("page-chapter").display(page-chapter => {
+    let chapter-number = if page-chapter.numbering != none {
+      chapter-numbering(location: page-chapter.location())
+    } else {
+      []
     }
-    chapter-label.display()
-  }
-)
+    // apply default or specified format function
+    format-chapter(chapter-number, page-chapter.body)
+  })
+}
 
 #let chapter-header(
   page-label: "Page",

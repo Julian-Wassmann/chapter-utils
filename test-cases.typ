@@ -30,7 +30,7 @@ $ a^2 + b^2 = c^2 $
 #set page(
   header: [],
   footer: {
-    page-heading()
+    page-heading(format-chapter: (number, body) => text(fill: blue)[Custom: *#body*])
     h(1fr)
     [Author, #datetime.today().display()]
     h(1fr)
