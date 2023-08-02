@@ -1,5 +1,5 @@
 #let page-number(
-  page-label,
+  page-label: "Page",
 ) = locate(loc => {
   let page-number-format = loc.page-numbering()
   // show page-label and page-number if page-numbering is enabled
@@ -41,7 +41,7 @@
   [
     #page-heading()
     #h(1fr)
-    #page-number(page-label)
+    #page-number(page-label: page-label)
   ]
   
   line(
