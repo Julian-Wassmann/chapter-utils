@@ -31,7 +31,7 @@
   if number == [] {
     [#body]
   } else {
-    [#number. #body]
+    [#number #body]
   }
 }
 
@@ -43,7 +43,7 @@
   // state.display returns content from its format function
   state("page-chapter").display(page-chapter => {
     let chapter-number = if page-chapter.numbering != none {
-      chapter-numbering(location: page-chapter.location())
+      chapter-numbering(location: page-chapter.location(), numbering-pattern: page-chapter.numbering)
     } else {
       []
     }
