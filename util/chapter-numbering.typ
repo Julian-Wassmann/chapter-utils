@@ -2,10 +2,13 @@
   depth: 1,
   seperator: ".",
   numbering-pattern: "1",
+  location: none,
 ) = {
-  counter(heading).display((..heading-numbers) => {
-    heading-numbers
-      .pos()
+  locate(loc => {
+    if type(location) == "location" {
+      loc = location
+    }    
+    counter(heading).at(loc)
       .enumerate()
       .filter(((level, ..)) => depth == none or level < depth)
       .map(((.., heading-number)) => {
