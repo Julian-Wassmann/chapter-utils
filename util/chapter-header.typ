@@ -28,6 +28,7 @@
     // find first heading on current page
     let first-heading = query(
       heading.where(level: 1), loc)
+      .rev()
       .find(h => h.location().page() == loc.page())
     // if headings were found on this page
     if first-heading != none {
