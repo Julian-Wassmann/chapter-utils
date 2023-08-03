@@ -1,4 +1,4 @@
-#import "lib.typ": chapter-header, chapter-numbering, page-number, page-heading
+#import "lib.typ": chapter-header, chapter-numbering, page-number, page-chapter
 
 #set page(
   header: chapter-header(format-page: p => [Seite #p]),
@@ -28,7 +28,7 @@ $ a^2 + b^2 = c^2 $
 #set page(
   header: [],
   footer: {
-    page-heading(format-chapter: (number, body) => text(fill: blue)[Custom: *#body*])
+    page-chapter(format-chapter: (number, body) => text(fill: blue)[Custom: *#body*])
     h(1fr)
     [Author, #datetime.today().display()]
     h(1fr)

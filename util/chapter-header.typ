@@ -1,4 +1,4 @@
-#import "page-heading.typ": page-heading
+#import "page-chapter.typ": page-chapter
 
 #let page-number(
   format-page: (page-number) => [Page #page-number]
@@ -20,7 +20,7 @@
   set block(spacing: line-spacing)
 
   [
-    #page-heading()
+    #page-chapter()
     #h(1fr)
     #page-number(format-page: format-page)
   ]

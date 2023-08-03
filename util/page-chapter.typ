@@ -41,7 +41,7 @@
   format-chapter(chapter-number, page-chapter.body)
 }
 
-#let page-heading(
+#let page-chapter(
   format-chapter: format-chapter-default
 ) = {
   // updates chapter state to the current page
