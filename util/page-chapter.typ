@@ -32,6 +32,9 @@
   page-chapter,
   format-chapter,
 ) = {
+  if page-chapter == none {
+    return []
+  }
   let chapter-number = if page-chapter.numbering != none {
     chapter-numbering(location: page-chapter.location(), numbering-pattern: page-chapter.numbering)
   } else {
@@ -48,6 +51,9 @@
   update-page-chapter()
   // state.display returns content from its format function
   state("chapter-found").display(chapter-found => {
+    if chapter-found == none {
+      return []
+    }
     if chapter-found {
       state("first-chapter").display(chapter => print-chapter(chapter, format-chapter))
     } else {

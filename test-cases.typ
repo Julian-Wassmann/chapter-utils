@@ -4,12 +4,15 @@
   header: chapter-header(format-page: p => [Seite #p]),
   footer: [],
   numbering: "1",
+  paper: "a6",
 )
 
 #set math.equation(numbering: eqCounter => {
   let eqNumbering = numbering("1", eqCounter)
   [(#chapter-numbering().#eqNumbering)]
 })
+
+#pagebreak()
 
 = Chapter 0
 
