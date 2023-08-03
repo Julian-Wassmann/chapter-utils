@@ -1,7 +1,10 @@
 #import "lib.typ": chapter-header, chapter-numbering, page-number, page-chapter
 
 #set page(
-  header: chapter-header(format-page: p => [Seite #p]),
+  header: chapter-header(
+    format-page: p => [Seite #p],
+    mirror-even: true,
+  ),
   footer: [],
   numbering: "1",
   paper: "a6",

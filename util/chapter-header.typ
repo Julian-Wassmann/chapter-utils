@@ -15,18 +15,33 @@
   format-page: (page-number) => [Page #page-number],
   line-stroke: 0.3pt,
   line-spacing: 0.5em,
+  mirror-even: false,
+  mirror-odd: false,
 ) = {
-  // vertical distance between text and line
-  set block(spacing: line-spacing)
+  locate(loc => {
+    let even = calc.even(loc.page())
+    let mirror = if even and mirror-even or not even and mirror-odd {
+      true
+    } else {
+      false
+    }
 
-  [
-    #page-chapter()
-    #h(1fr)
-    #page-number(format-page: format-page)
-  ]
-  
-  line(
-    length: 100%,
-    stroke: line-stroke,
-  )
+    // vertical distance between text and line
+    set block(spacing: line-spacing)
+
+    if mirror [
+      #page-number(format-page: format-page)
+      #h(1fr)
+      #page-chapter()
+    ] else [
+      #page-chapter()
+      #h(1fr)
+      #page-number(format-page: format-page)
+    ]
+    
+    line(
+      length: 100%,
+      stroke: line-stroke,
+    )
+  })
 }
