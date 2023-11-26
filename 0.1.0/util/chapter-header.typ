@@ -1,4 +1,4 @@
-#import "page-chapter.typ": page-chapter
+#import "./page-chapter.typ": page-chapter
 
 #let page-number(
   format-page: (page-number) => [Page #page-number]

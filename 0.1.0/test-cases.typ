@@ -1,6 +1,6 @@
 // TODO: Page number in header lacks default page number behind, after page counter gets updated: Only for "empty" pages. Possible workaround: hide()
 
-#import "lib.typ": chapter-header, chapter-numbering, page-number, page-chapter
+#import "./lib.typ": chapter-header, chapter-numbering, page-number, page-chapter
 
 #set page(
   paper: "a6"

@@ -1,4 +1,4 @@
-#import "chapter-numbering.typ": chapter-numbering
+#import "./chapter-numbering.typ": chapter-numbering
 
 #let update-page-chapter() = {
   locate(loc => {
