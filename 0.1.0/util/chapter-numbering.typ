@@ -7,7 +7,7 @@
   locate(loc => {
     if type(location) == "location" {
       loc = location
-    }    
+    }
     counter(heading).at(loc)
       .enumerate()
       .filter(((level, ..)) => depth == none or level < depth)
