@@ -1,14 +1,12 @@
 #import "./chapter-numbering.typ": chapter-numbering
 
 #let get-page-chapter(headerLoc) = {
-  let chapters = query(heading.where(level: 1), headerLoc)
+  let chapters = query(heading.where(level: 1))
   // try to find a chapter heading on current page
-  let page-chapter = chapters
-    .find(h => h.location().page() == headerLoc.page())
+  let page-chapter = chapters.find(h => h.location().page() == headerLoc.page())
   // if current page contains no chapter heading, find last chapter heading before current page
   if page-chapter == none {
-    page-chapter = chapters.rev()
-      .find(h => h.location().page() < headerLoc.page())
+    page-chapter = chapters.rev().find(h => h.location().page() < headerLoc.page())
   }
   page-chapter
 }
@@ -38,10 +36,8 @@
 }
 
 #let page-chapter(
-  format-chapter: format-chapter-default
-) = {
-  locate(loc => {
-    let page-chapter = get-page-chapter(loc)
-    print-chapter(page-chapter, format-chapter)
-  })
+  format-chapter: format-chapter-default,
+) = context {
+  let page-chapter = get-page-chapter(here())
+  print-chapter(page-chapter, format-chapter)
 }
